@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Full Screen Video</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Ad-Free Website Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * {
+    body, html {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
       height: 100%;
-      background: #000;
       overflow: hidden;
+      font-family: sans-serif;
     }
 
-    video {
+    #inputContainer {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
-      object-fit: cover;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <video src="https://s1.kriket.dad/" autoplay loop muted controls></video>
+  <div id="inputContainer">
+    <input type="text" id="urlInput" placeholder="Paste website URL here" />
+    <button onclick="loadWebsite()">Go</button>
+  </div>
+
+  <iframe id="websiteFrame" src=""></iframe>
+
+  <script>
+    function loadWebsite() {
+      const url = document.getElementById("urlInput").value;
+      const formatted = url.startsWith("http") ? url : "https://" + url;
+      document.getElementById("websiteFrame").src = formatted;
+    }
+  </script>
 </body>
 </html>
